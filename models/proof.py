@@ -140,7 +140,13 @@ class Learner(BaseLearner):
         trainable_params = [p for p in self._network.parameters() if p.requires_grad]
         if len(trainable_params) == 0:
             logging.warning("[Train] No trainable params found! Are you sure projections are unfrozen?")
-        optimizer = optim.SGD(trainable_params, lr=self.init_lr, momentum=0.9, weight_decay=self.weight_decay)
+        
+        if self.args['optimizer'] == 'sgd':
+            optimizer = optim.SGD(self._network.parameters(), momentum=0.9, 
+                                 lr=self.init_lr, weight_decay=self.weight_decay)
+        elif self.args['optimizer'] == 'adam': 
+            optimizer = optim.AdamW(self._network.parameters(), lr=self.init_lr, 
+                                   weight_decay=self.weight_decay)
 
         # Scheduler: prefer OneCycleLR if enough steps, else CosineAnnealingLR
         try:
