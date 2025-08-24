@@ -17,11 +17,11 @@
     "init_lr": 0.002,
     "max_lr": 0.02,
     "batch_size": 32,
-    "weight_decay": 0.05,
+    "weight_decay": 0.01,
     "min_lr": 0,
     "optimizer": "sgd",
     "label_smoothing": 0.01,
     "kd_alpha": 0.05,
     "kd_temp": 2.0,
-    "use_onecycle": false
+    "use_onecycle": true
 }
